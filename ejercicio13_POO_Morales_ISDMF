@@ -1,0 +1,45 @@
+import random
+
+class Jugador:
+    def __init__(self, nombre, es_usuario=False):
+        self.nombre = nombre
+        self.puntaje_total = 0
+        self.es_usuario = es_usuario
+
+    def lanzar_dado(self):
+        valor = random.randint(1, 6)
+        self.puntaje_total += valor
+        print(f"{self.nombre} lanzó un dado y obtuvo: {valor}")
+        return valor
+
+# --- Programa Principal ---
+def iniciar_juego():
+    usuario = Jugador("Usuario", es_usuario=True)
+    rival = Jugador("Sistema")
+    rondas = 3
+
+    print("--- BIENVENIDO AL DESAFÍO DE DADOS ---")
+
+    for i in range(1, rondas + 1):
+        print(f"\n--- Ronda {i} ---")
+        
+        # Turno usuario
+        input("Presiona Enter para lanzar tu dado...")
+        usuario.lanzar_dado()
+        
+        # Turno sistema
+        rival.lanzar_dado()
+        
+    print("\n--- RESULTADO FINAL ---")
+    print(f"Tu puntaje: {usuario.puntaje_total}")
+    print(f"Puntaje sistema: {rival.puntaje_total}")
+    
+    if usuario.puntaje_total > rival.puntaje_total:
+        print("¡Has ganado!")
+    else:
+        print("El sistema ha ganado.")
+    
+    print("GAME OVER")
+
+# Ejecutar juego
+iniciar_juego()
