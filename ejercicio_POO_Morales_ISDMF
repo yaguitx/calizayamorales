@@ -1,0 +1,45 @@
+class Torre:
+    def __init__(self, nombre, resistencia):
+        self.nombre = nombre
+        self.resistencia = resistencia
+
+    def recibir_ataque(self, dano):
+        self.resistencia -= dano
+        if self.resistencia < 0:
+            self.resistencia = 0
+        print(f"¡La torre recibió {dano} de daño! Resistencia restante: {self.resistencia}")
+
+    def esta_en_pie(self):
+        return self.resistencia > 0
+
+# --- Programa Principal ---
+def juego_defensa():
+    # Inicializamos la torre con 100 de resistencia
+    mi_torre = Torre("Torre Principal", 100)
+    
+    print("--- INICIO DE LA ÚLTIMA DEFENSA ---")
+    
+    while mi_torre.esta_en_pie():
+        print(f"\nEstado actual: {mi_torre.resistencia} de resistencia.")
+        print("Opciones: [1] Reparar Torre | [2] Atacar enemigo | [3] Esperar")
+        
+        accion = input("¿Qué acción tomarás?: ")
+        
+        # Lógica de acción del usuario
+        if accion == "1":
+            mi_torre.resistencia += 10
+            print("Has reparado la torre un poco.")
+        elif accion == "2":
+            print("Has lanzado un contraataque.")
+        elif accion == "3":
+            print("Has esperado, la torre queda vulnerable.")
+        
+        # El sistema genera un ataque constante al final de cada turno
+        print("¡El enemigo ataca la base!")
+        mi_torre.recibir_ataque(15)
+
+    print("\n--- La torre ha caído ---")
+    print("GAME OVER")
+
+# Ejecutar juego
+juego_defensa()
