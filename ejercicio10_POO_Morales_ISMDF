@@ -1,0 +1,47 @@
+import random
+
+class Auto:
+    def __init__(self, nombre, es_usuario=False):
+        self.nombre = nombre
+        self.posicion = 0
+        self.es_usuario = es_usuario
+
+    def avanzar(self):
+        # El avance es aleatorio para simular el desempeño
+        avance = random.randint(1, 10)
+        self.posicion += avance
+        return avance
+
+    def __str__(self):
+        return f"{self.nombre}: {self.posicion} km"
+
+# --- Programa Principal ---
+def iniciar_carrera():
+    jugador = Auto("Tu Auto", es_usuario=True)
+    rivales = [Auto("Auto Rival 1"), Auto("Auto Rival 2")]
+    meta = 50
+    
+    print("¡COMIENZA LA GRAN CARRERA!")
+    
+    while jugador.posicion < meta and all(r.posicion < meta for r in rivales):
+        print("\n--- Estado de la carrera ---")
+        print(jugador)
+        for r in rivales:
+            print(r)
+        
+        # Acción del usuario
+        input("\nPresiona Enter para avanzar tu auto...")
+        print(f"Has avanzado {jugador.avanzar()} km.")
+        
+        # Acción automática de los rivales
+        for r in rivales:
+            r.avanzar()
+            
+    print("\n--- RESULTADO FINAL ---")
+    print(jugador)
+    for r in rivales:
+        print(r)
+    print("GAME OVER")
+
+# Ejecutar carrera
+iniciar_carrera()
