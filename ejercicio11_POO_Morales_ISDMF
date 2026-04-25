@@ -1,0 +1,63 @@
+import random
+
+class Hechicero:
+    def __init__(self, nombre):
+        self.nombre = nombre
+        self.vida = 100
+        self.mana = 50
+
+    def atacar(self, oponente):
+        # Ataque básico que consume poco mana
+        dano = random.randint(5, 15)
+        oponente.vida -= dano
+        print(f"{self.nombre} lanza un proyectil mágico y causa {dano} de daño.")
+
+    def hechizo_especial(self, oponente):
+        # Hechizo fuerte que requiere mana
+        if self.mana >= 20:
+            self.mana -= 20
+            dano = random.randint(20, 35)
+            oponente.vida -= dano
+            print(f"{self.nombre} lanza un hechizo poderoso causando {dano} de daño.")
+        else:
+            print(f"{self.nombre} no tiene suficiente mana para el hechizo especial.")
+
+    def esta_vivo(self):
+        return self.vida > 0
+
+# --- Programa Principal ---
+def batalla():
+    usuario = Hechicero("Tu Hechicero")
+    sistema = Hechicero("Hechicero Oscuro")
+
+    print("--- ¡COMIENZA EL DUELO DE HECHICEROS! ---")
+
+    while usuario.esta_vivo() and sistema.esta_vivo():
+        print(f"\nTu Vida: {usuario.vida} | Mana: {usuario.mana}")
+        print(f"Vida Enemiga: {sistema.vida}")
+        print("Opciones: [1] Ataque Básico | [2] Hechizo Especial (Cuesta 20 Mana)")
+        
+        accion = input("Elige una acción (1/2): ")
+        
+        # Turno del usuario
+        if accion == "1":
+            usuario.atacar(sistema)
+        elif accion == "2":
+            usuario.hechizo_especial(sistema)
+        else:
+            print("Acción inválida, perdiste tu turno.")
+
+        # Turno del sistema (automático)
+        if sistema.esta_vivo():
+            sistema.atacar(usuario)
+            sistema.mana += 5 # Recupera un poco de mana por turno
+
+    print("\n--- RESULTADO FINAL ---")
+    if usuario.esta_vivo():
+        print("¡Has ganado la batalla!")
+    else:
+        print("Has sido derrotado.")
+    print("GAME OVER")
+
+# Ejecutar batalla
+batalla()
