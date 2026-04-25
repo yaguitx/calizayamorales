@@ -1,0 +1,42 @@
+class Aventurero:
+    def __init__(self, nombre):
+        self.nombre = nombre
+        self.inventario = []
+
+    def gestionar_objeto(self):
+        print(f"\nInventario actual: {self.inventario}")
+        print("Opciones: [1] Guardar objeto | [2] Usar objeto | [3] Descartar | [4] Salir")
+        accion = input("¿Qué deseas hacer?: ")
+        
+        if accion == "1":
+            objeto = input("¿Qué objeto encontraste?: ")
+            self.inventario.append(objeto)
+            print(f"{objeto} guardado.")
+        elif accion == "2":
+            if self.inventario:
+                objeto = self.inventario.pop(0) # Usa el primer objeto
+                print(f"Has utilizado: {objeto}")
+            else:
+                print("Tu inventario está vacío.")
+        elif accion == "3":
+            if self.inventario:
+                objeto = self.inventario.pop()
+                print(f"Has descartado: {objeto}")
+            else:
+                print("Nada que descartar.")
+        return accion
+
+# --- Programa Principal ---
+def aventura():
+    jugador = Aventurero("Explorador")
+    print("--- INICIO DE LA AVENTURA ---")
+    
+    while True:
+        continuar = jugador.gestionar_objeto()
+        if continuar == "4":
+            break
+            
+    print("GAME OVER")
+
+# Ejecutar aventura
+aventura()
