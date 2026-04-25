@@ -1,0 +1,56 @@
+import random
+
+class Cofre:
+    def __init__(self):
+        # El cofre puede estar abierto (True) o cerrado (False) [cite: 8]
+        self.abierto = False
+        # Cantidad aleatoria de monedas [cite: 8]
+        self.monedas = random.randint(10, 100)
+
+    def intentar_abrir(self):
+        self.abierto = True
+        print("¡Has abierto el cofre!")
+
+    def estado(self):
+        return "Abierto" if self.abierto else "Cerrado"
+
+class Explorador:
+    def __init__(self):
+        self.recursos = 0
+
+    def recolectar(self, cofre):
+        if cofre.abierto:
+            self.recursos += cofre.monedas
+            print(f"¡Has recolectado {cofre.monedas} monedas!")
+            cofre.monedas = 0 # El cofre queda vacío
+        else:
+            print("¡Debes abrir el cofre primero!")
+
+# --- Programa Principal ---
+def jugar():
+    mi_cofre = Cofre()
+    jugador = Explorador()
+    
+    print("--- BIENVENIDO A LA CUEVA DEL TESORO ---")
+    
+    while True:
+        print(f"\nEstado del cofre: {mi_cofre.estado()}")
+        print(f"Monedas acumuladas: {jugador.recursos}")
+        print("Opciones: [1] Abrir cofre | [2] Recolectar | [3] Salir")
+        
+        accion = input("¿Qué deseas hacer?: ")
+        
+        if accion == "1":
+            mi_cofre.intentar_abrir()
+        elif accion == "2":
+            jugador.recolectar(mi_cofre)
+        elif accion == "3":
+            print("Finalizando exploración...")
+            break
+        else:
+            print("Acción no válida.")
+
+    print("GAME OVER")
+
+# Ejecutar juego
+jugar()
