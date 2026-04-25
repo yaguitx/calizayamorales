@@ -1,0 +1,32 @@
+import random
+
+class Personaje:
+    def __init__(self, nombre, vida, fuerza):
+        self.nombre = nombre
+        self.vida = vida
+        self.fuerza = fuerza
+
+    def atacar(self, otro):
+        dano = random.randint(1, self.fuerza)
+        print(f"{self.nombre} ataca a {otro.nombre} y causa {dano} de daño.")
+        otro.recibir_dano(dano)
+
+    def recibir_dano(self, dano):
+        self.vida -= dano
+        if self.vida < 0: self.vida = 0
+        print(f"{self.nombre} ahora tiene {self.vida} de vida.")
+
+    def esta_vivo(self):
+        return self.vida > 0
+
+# --- Lógica del juego ---
+jugador = Personaje("Héroe", 100, 20)
+enemigo = Personaje("Orco", 100, 15)
+
+print("¡Comienza el duelo!")
+while jugador.esta_vivo() and enemigo.esta_vivo():
+    # Aquí iría la interacción con el usuario (input) [cite: 4]
+    # Y la respuesta automática del enemigo [cite: 4]
+    break # Placeholder para evitar bucle infinito
+
+print("GAME OVER")
